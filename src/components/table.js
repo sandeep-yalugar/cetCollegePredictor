@@ -16,17 +16,115 @@ const Table = () => {
     const [crind,setcrind] = useState(0)
     const [Rank,setrank] = useState(0);
     const [categoryy,setcat] = useState('GM')
+    const [tbase,setTbase] = useState(0);
+
     useEffect(() => {
-      if ((crind+base+10)<ldis.length){
-      const payload = ldis.slice(crind+base,crind+base+10).map((obj,ind) => {return {...obj,sino:ind+base+1}});
-      setlis(payload);}
-      else{
-        const payload = ldis.slice(crind+base,ldis.length).map((obj,ind) => {return {...obj,sino:ind+base+1}});
-      setlis(payload);}
+      setTbase(0);
+        
+
+      if ((crind+base+10)<ldis.length)
+      {
+        const payload = ldis.slice(crind+base,crind+base+10).map((obj,ind) => {return {...obj,sino:ind+base+1}});
+        setlis(payload);
       }
-    ,[crind,ldis,base])
-    const handleCat = (event) =>{
+      else
+      {
+          const payload = ldis.slice(crind+base,ldis.length).map((obj,ind) => {return {...obj,sino:ind+base+1}});
+        setlis(payload);
+      }
+        
+
+      
+      }
+    ,[crind])
+
+
+    useEffect(() => {
+      switch (categoryy) {
+        case '1G':
+          setldis(d1g);
+          break;
+        case '1K':
+          setldis(d1k);
+          break;
+        case '1R':
+          setldis(d1r);
+          break;
+        case '2AG':
+          setldis(d2ag);
+          break;
+        case '2AK':
+          setldis(d2ak);
+          break;
+        case '2AR':
+          setldis(d2ar);
+          break;
+        case '2BG':
+          setldis(d2bg);
+          break;
+        case '2BK':
+          setldis(d2bk);
+          break;
+        case '2BR':
+          setldis(d2br);
+          break;
+        case '3AG':
+          setldis(d3ag);
+          break;
+        case '3AK':
+          setldis(d3ak);
+          break;
+        case '3AR':
+          setldis(d3ar);
+          break;
+        case '3BG':
+          setldis(d3bg);
+          break;
+        case '3BK':
+          setldis(d3bk);
+          break;
+        case '3BR':
+          setldis(d3br);
+          break;
+        case 'GM':
+          setldis(dgm);
+          break;
+        case 'GMK':
+          setldis(dgmk);
+          break;
+        case 'GMR':
+          setldis(dgmr);
+          break;
+        case 'SCG':
+          setldis(dscg);
+          break;
+        case 'SCK':
+          setldis(dsck);
+          break;
+        case 'SCR':
+          setldis(dscr);
+          break;
+        case 'STG':
+          setldis(dstg);
+          break;
+        case 'STK':
+          setldis(dstk);
+          break;
+        case 'STR':
+          setldis(dstr);
+          break;
+        default:
+          setldis(dgm);
+          break;
+      }
+    },[categoryy] )
+
+    const handleCat = (event) =>
+    {
+        console.log(event);
+        event.preventDefault();
         setcat(event.target.value);
+        
 
     }
     const rankChange = (e) =>
@@ -34,116 +132,62 @@ const Table = () => {
         setrank(e.target.value);
     }
 
-    const rankClick = () => {
+    const rankClick = () => 
+    {
       console.log('search was clicked');
-        switch (categoryy) {
-            case '1G':
-              setldis(d1g);
-              break;
-            case '1K':
-              setldis(d1k);
-              break;
-            case '1R':
-              setldis(d1r);
-              break;
-            case '2AG':
-              setldis(d2ag);
-              break;
-            case '2AK':
-              setldis(d2ak);
-              break;
-            case '2AR':
-              setldis(d2ar);
-              break;
-            case '2BG':
-              setldis(d2bg);
-              break;
-            case '2BK':
-              setldis(d2bk);
-              break;
-            case '2BR':
-              setldis(d2br);
-              break;
-            case '3AG':
-              setldis(d3ag);
-              break;
-            case '3AK':
-              setldis(d3ak);
-              break;
-            case '3AR':
-              setldis(d3ar);
-              break;
-            case '3BG':
-              setldis(d3bg);
-              break;
-            case '3BK':
-              setldis(d3bk);
-              break;
-            case '3BR':
-              setldis(d3br);
-              break;
-            case 'GM':
-              setldis(dgm);
-              break;
-            case 'GMK':
-              setldis(dgmk);
-              break;
-            case 'GMR':
-              setldis(dgmr);
-              break;
-            case 'SCG':
-              setldis(dscg);
-              break;
-            case 'SCK':
-              setldis(dsck);
-              break;
-            case 'SCR':
-              setldis(dscr);
-              break;
-            case 'STG':
-              setldis(dstg);
-              break;
-            case 'STK':
-              setldis(dstk);
-              break;
-            case 'STR':
-              setldis(dstr);
-              break;
-            default:
-              setldis(dgm);
-              break;
-          }
+        
         setbase(0);
-
-        for(let i=0; i<ldis.length;i++){
-          if(parseInt(ldis[i].cutoff)>=parseInt(Rank)){
+        for(let i=0; i<ldis.length;i++)
+        {
+          if(parseInt(ldis[i].cutoff)>=parseInt(Rank))
+          {
               setcrind(i);
               break;
           }
-          if(i>=ldis.length){
+          if(i>=ldis.length)
+          {
             setcrind(ldis.length-1)
           }
-      }
+       }
         
         
     }
     
 
     const handleNext = () => {
-       const maxind = ldis.length;
-        if((base+10)<maxind){setbase(base+10);}
-   
+      setTbase((prev) => {
+        if ((ldis.length - 10) >= (prev + crind)) {
+          const updatedTbase = prev + 10; // Calculate the updated value
+          const payload = ldis.slice(crind + updatedTbase, crind + updatedTbase + 10).map((obj, ind) => {
+            return { ...obj, sino: ind + updatedTbase + 1 };
+          });
+          setlis(payload);
+          return updatedTbase; // Return the updated state value
+        } else {
+          return prev;
+        }
+      });
     }
+    
+        
+   
+    
 
     const handlePrev = () => {
-        if(base>=10){
-           setbase(base-10);
-          }
-       else{
-        setbase(0);
-       }
-       
+      setTbase((prev) => {
+        if (prev >= 10) {
+          const updatedTbase = prev - 10; // Calculate the updated value
+          const payload = ldis.slice(crind + updatedTbase, Math.min(crind + updatedTbase + 10, ldis.length)).map((obj, ind) => {
+            return { ...obj, sino: ind + updatedTbase + 1 };
+          });
+          setlis(payload);
+          return updatedTbase; // Return the updated state value
+        } else {
+          return prev;
+        }
+      });
     }
+    
 
     const obj = {sino: 'SI.no',name:'College Name',branch:'Branch',cutoff:'Cut-off' }
 
